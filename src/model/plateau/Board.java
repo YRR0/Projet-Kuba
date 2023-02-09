@@ -1,9 +1,7 @@
-package model.plateau;
+package plateau;
 
-import model.Bille;
-import model.Couleur;
-import model.mouvement.Direction;
-import model.mouvement.Position;
+import mouvement.Direction;
+import mouvement.Position;
 import java.util.Random;
 
 
@@ -12,6 +10,7 @@ public class Board {
     private final Cell[][] board;
     private static Long[][] keys;
     private final int n;
+
 
     public Board(int n) {
         this.n = n;
@@ -78,8 +77,8 @@ public class Board {
     }
 
     public void bouger(Position pos, Direction dir) {
-        int x = pos.gPosX(), y = pos.gPosY();
-        int dx = dir.gDirX(), dy = dir.gDirY();
+        int x = pos.gPosI(), y = pos.gPosJ();
+        int dx = dir.gDirI(), dy = dir.gDirJ();
 
         while(estDansLimite(x+dx, y+dy) && !board[x][y].estVide()) {
             x += dx;
@@ -87,13 +86,13 @@ public class Board {
         }
 
         if(dx == 0) {
-            for(int i = y; i != pos.gPosY(); i -= dy) {
+            for(int i = y; i != pos.gPosJ(); i -= dy) {
                 board[x][i].setBille(board[x][i-dy].getBille());
                 board[x][i-dy].clear();
             }
         }
         if(dy == 0) {
-            for(int i = x; i != pos.gPosX(); i -= dx) {
+            for(int i = x; i != pos.gPosI(); i -= dx) {
                 board[i][y].setBille(board[i-dx][y].getBille());
                 board[i-dx][y].clear();
             }
@@ -140,5 +139,9 @@ public class Board {
         if(o == this) return true;
         if(!(o instanceof Board)) return false;
         return o.hashCode() == this.hashCode();
+    }
+
+    public Cell[][] getBoard() {
+        return board;
     }
 }

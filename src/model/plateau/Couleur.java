@@ -1,4 +1,4 @@
-package model;
+package plateau;
 
 public enum Couleur {
     BLANC,

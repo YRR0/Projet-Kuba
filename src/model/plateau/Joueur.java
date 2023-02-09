@@ -1,9 +1,11 @@
+package plateau;
 public class Joueur {
 
     private String nom; 
     private int nbBille;
     private int nbBilleRougeCapturer;
     private boolean noire;
+
 
     public Joueur(String nom, int taille, boolean noire )
     {
@@ -50,6 +52,22 @@ public class Joueur {
     public int getNbBilleRougeCapturer() {
         return nbBilleRougeCapturer;
     }
-
+    /* j'ai pensé a une methode update pour le nombre de bille, pas sûr de la conserver */
+    public void update(Board board){
+        int nbBille = 0;
+        for(int i = 0; i < board.getBoard().length; i++){
+            for(int j = 0; j < board.getBoard()[i].length; j++){
+                if(!board.getBoard()[i][j].estVide()){
+                    if(board.getBoard()[i][j].getBille().getColor() == Couleur.NOIR && this.noire){
+                        this.nbBille++;
+                    }
+                    if(board.getBoard()[i][j].getBille().getColor() == Couleur.BLANC && !this.noire){
+                        this.nbBille++;
+                    }
+                }
+            }
+        }
+        this.nbBille = nbBille;
+    }
     
 }

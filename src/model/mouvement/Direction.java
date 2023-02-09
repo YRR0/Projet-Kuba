@@ -1,4 +1,4 @@
-package model.mouvement;
+package mouvement;
 
 public enum Direction {
 	// Placement dans un tableau de tableau

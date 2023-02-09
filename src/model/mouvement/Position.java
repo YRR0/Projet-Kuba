@@ -1,4 +1,4 @@
-package model.mouvement;
+package mouvement;
 
 public class Position {
 	private final int i;
@@ -22,11 +22,11 @@ public class Position {
 	}
 
 	public Direction nextDir(Position b) {
-		if (this.i < a.i)
+		if (this.i < b.i)
 			return Direction.NORD;
-		else if (this.i > a.i)
+		else if (this.i > b.i)
 			return Direction.SUD;
-		else if (this.j < a.j)
+		else if (this.j < b.j)
 			return Direction.OUEST;
 		else
 			return Direction.EST;

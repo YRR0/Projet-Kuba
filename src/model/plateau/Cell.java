@@ -1,5 +1,4 @@
-package model.plateau;
-import model.Bille;
+package plateau;
 
 class Cell {
 

@@ -1,6 +1,6 @@
-package model;
+package plateau;
 
-import model.mouvement.*;;
+import mouvement.*;;
 
 public class Bille {
     private Position pos;

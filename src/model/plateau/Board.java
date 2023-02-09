@@ -4,6 +4,9 @@ import mouvement.Direction;
 import mouvement.Position;
 import java.util.Random;
 
+import Bille;
+import Couleur;
+
 
 public class Board {
 

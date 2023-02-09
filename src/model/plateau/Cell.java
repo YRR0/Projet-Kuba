@@ -1,5 +1,7 @@
 package plateau;
 
+import Bille;
+
 class Cell {
 
     private Bille bille;
@@ -8,7 +10,7 @@ class Cell {
         this.bille = bille;
     }
 
-    Bille getBille() {
+    public Bille getBille() {
         return bille;
     }
 

@@ -28,7 +28,12 @@ public class Joueur
         this.nbBille--;
     }
     
-
+    @Override 
+    public String toString()
+    {
+        String bw =  this.noire == true ? "Noir" : "Blanc" ;
+        return "Joueur : " + this.nom + " Nombre de billes : " + this.nbBille + " Nombre de billes rouge capturé : " + this.nbBilleRougeCapturer + " Couleur : " + bw;
+    }
 
 
 

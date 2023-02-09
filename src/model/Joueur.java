@@ -18,6 +18,18 @@ public class Joueur
         return nbBille == 0;
     }
 
+    public void capturerBille()
+    {
+        this.nbBilleRougeCapturer++;
+    }
+
+    public void perdreBille()
+    {
+        this.nbBille--;
+    }
+    
+
+
 
 
 

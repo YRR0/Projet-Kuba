@@ -1,5 +1,5 @@
-public class Joueur 
-{
+public class Joueur {
+
     private String nom; 
     private int nbBille;
     private int nbBilleRougeCapturer;
@@ -35,74 +35,21 @@ public class Joueur
         return "Joueur : " + this.nom + " Nombre de billes : " + this.nbBille + " Nombre de billes rouge capturé : " + this.nbBilleRougeCapturer + " Couleur : " + bw;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public String getNom()
-    {
-        return this.nom;
+    public String getNom() {
+        return nom;
     }
 
-    public int getNbBille()
-    {
-        return this.nbBille;
+    public boolean isNoire() {
+        return noire;
     }
 
-    public boolean getNoire()
-    {
-        return this.noire;
+    public int getNbBille() {
+        return nbBille;
     }
 
-    public void setNom(String nom)
-    {
-        this.nom = nom;
+    public int getNbBilleRougeCapturer() {
+        return nbBilleRougeCapturer;
     }
 
-    public void setNbBille(int nbBille)
-    {
-        this.nbBille = nbBille;
-    }
-
-    public void setNoire(boolean noire)
-    {
-        this.noire = noire;
-    }
-
-    public void setNbBilleRougeCapturer(int nbBilleRougeCapturer)
-    {
-        this.nbBilleRougeCapturer = nbBilleRougeCapturer;
-    }
-
-    public int getNbBilleRougeCapturer()
-    {
-        return this.nbBilleRougeCapturer;
-    }
-
-
-
-
-
+    
 }

@@ -107,6 +107,18 @@ public class Board {
         return i >= 0 && i < board.length && j >= 0 && j < board[i].length;
     }
 
+    public int countBille(Couleur couleur) {
+        int count = 0;
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[i].length; j++) {
+                if(!board[i][j].estVide() && board[i][j].getBille().getColor() == couleur) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     @Override
     public String toString() {
         StringBuilder plateau = new StringBuilder();
@@ -147,4 +159,9 @@ public class Board {
     public Cell[][] getBoard() {
         return board;
     }
+
+    public int getN() {
+        return n;
+    }
+
 }

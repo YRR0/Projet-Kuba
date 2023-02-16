@@ -1,6 +1,6 @@
 
 
-import mouvement.*;;
+import mouvement.*;
 
 public class Bille {
     private Position pos;

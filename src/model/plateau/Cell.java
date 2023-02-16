@@ -27,6 +27,7 @@ class Cell implements Cloneable {
         return bille.toString();
     }
 
+    //
     @Override
     public Object clone(){
         Cell c = null;
@@ -38,5 +39,6 @@ class Cell implements Cloneable {
         c.bille = (bille != null) ? (Bille) bille.clone() : null;
         return c;
     }
+    //
 
 }

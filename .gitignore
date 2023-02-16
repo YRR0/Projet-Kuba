@@ -5,4 +5,7 @@ Thumbs.db
 *.out
 *.class
 /src/*.class
+/src/DS_Store
+/src/model/DS_Store
+/src/model/mouvement/DS_Store
 /bin

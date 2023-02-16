@@ -12,7 +12,9 @@ public class Board{
     private final Cell[][] board;
     private static Long[][] keys;
     private final int n;
+    // chaque entier est un hash code du plateau, chaque entier de l'ensemble represente un plateau
     private final Set<Integer> treated_confs;
+    //
 
     public Board(int n) {
         this.treated_confs = new HashSet<>();
@@ -83,7 +85,9 @@ public class Board{
         int x = pos.gPosX(), y = pos.gPosY();
         int dx = dir.gDirX(), dy = dir.gDirY();
 
+        //
         Cell[][] saved_board = copyBoard();
+        //
 
         while(estDansLimite(x+dx, y+dy) && !board[x][y].estVide()) {
             x += dx;
@@ -91,26 +95,33 @@ public class Board{
         }
         if(dx == 0) {
             for(int i = y; i != pos.gPosY(); i -= dy) {
+                //
                 Bille bille = board[x][i-dy].getBille();
                 if (bille != null) bille.setPostion(new Position(x, i));
+                //
                 board[x][i].setBille(bille);
                 board[x][i-dy].clear();
             }
         }
         if(dy == 0) {
             for(int i = x; i != pos.gPosX(); i -= dx) {
+                //
                 Bille bille = board[i-dx][y].getBille();
                 if (bille != null) bille.setPostion(new Position(i, y));
+                //
                 board[i][y].setBille(bille);
                 board[i-dx][y].clear();
             }
         }
+        //
         int hash_code = hashCode();
         if (isTreated(hash_code)) undoMove(saved_board);
         else treated_confs.add(hash_code);
+        //
 
     }
 
+    //
     private Cell[][] copyBoard(){
         Cell[][] cells = new Cell[board.length][board[0].length];
         for (int i=0;i<board.length;i++){
@@ -128,6 +139,7 @@ public class Board{
             }
         }
     }
+    //
 
     private boolean estDansLimite(int i, int j) {
         return i >= 0 && i < board.length && j >= 0 && j < board[i].length;

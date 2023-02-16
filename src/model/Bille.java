@@ -1,6 +1,6 @@
 package model;
 
-import model.mouvement.*;;
+import model.mouvement.Position;
 
 public class Bille implements Cloneable{
 

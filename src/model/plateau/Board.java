@@ -6,7 +6,6 @@ import model.mouvement.Direction;
 import model.mouvement.Position;
 import java.util.*;
 
-
 public class Board{
 
     private final Cell[][] board;
@@ -15,6 +14,7 @@ public class Board{
     // chaque entier est un hash code du plateau, chaque entier de l'ensemble represente un plateau
     private final Set<Integer> treated_confs;
     //
+
 
     public Board(int n) {
         this.treated_confs = new HashSet<>();
@@ -82,8 +82,8 @@ public class Board{
     }
 
     public void move(Position pos, Direction dir) {
-        int x = pos.gPosX(), y = pos.gPosY();
-        int dx = dir.gDirX(), dy = dir.gDirY();
+        int x = pos.gPosI(), y = pos.gPosJ();
+        int dx = dir.gDirI(), dy = dir.gDirJ();
 
         //
         Cell[][] saved_board = copyBoard();
@@ -94,7 +94,7 @@ public class Board{
             y += dy;
         }
         if(dx == 0) {
-            for(int i = y; i != pos.gPosY(); i -= dy) {
+            for(int i = y; i != pos.gPosJ(); i -= dy) {
                 //
                 Bille bille = board[x][i-dy].getBille();
                 if (bille != null) bille.setPostion(new Position(x, i));
@@ -104,7 +104,7 @@ public class Board{
             }
         }
         if(dy == 0) {
-            for(int i = x; i != pos.gPosX(); i -= dx) {
+            for(int i = x; i != pos.gPosI(); i -= dx) {
                 //
                 Bille bille = board[i-dx][y].getBille();
                 if (bille != null) bille.setPostion(new Position(i, y));
@@ -184,5 +184,9 @@ public class Board{
         if(o == this) return true;
         if(!(o instanceof Board)) return false;
         return o.hashCode() == this.hashCode();
+    }
+
+    public Cell[][] getBoard() {
+        return board;
     }
 }

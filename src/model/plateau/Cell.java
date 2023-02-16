@@ -1,4 +1,5 @@
 package model.plateau;
+
 import model.Bille;
 
 class Cell implements Cloneable {
@@ -9,7 +10,7 @@ class Cell implements Cloneable {
         this.bille = bille;
     }
 
-    Bille getBille() {
+    public Bille getBille() {
         return bille;
     }
 

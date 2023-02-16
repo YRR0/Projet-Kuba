@@ -79,4 +79,10 @@ public class Joueur {
         this.nbBille = nbBille;
     }
     
+    public void updateScore(Couleur c){
+        if (c.equals(Couleur.ROUGE)){
+            this.nbBilleRougeCapturer++;
+        }
+    }
+
 }

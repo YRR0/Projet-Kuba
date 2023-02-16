@@ -86,7 +86,7 @@ public class Board{
             case NORD:return board[0][pos.gPosJ()];
             case SUD:return board[board.length-1][pos.gPosJ()];
             case EST:return board[pos.gPosI()][0];
-            default:return board[pos.gPosI()][board[0].length];
+            default:return board[pos.gPosI()][board[0].length-1];
         }
     }
 
@@ -97,10 +97,11 @@ public class Board{
         //
         Cell[][] saved_board = copyBoard();
         //
-
+        Cell lastcell = getLastCell(dir, pos);
         if (!j.getCouleur()
-              .equals(getLastCell(dir, pos).
-                        getBille().getColor())) return;
+            .equals(board[pos.gPosI()][pos.gPosJ()].getBille().getColor())
+            || (lastcell != null && !j.getCouleur().equals(
+                lastcell.getBille().getColor()))) return;
 
         while(estDansLimite(x+dx, y+dy) && !board[x][y].estVide()) {
             x += dx;
@@ -129,7 +130,10 @@ public class Board{
         //
         int hash_code = hashCode();
         if (isTreated(hash_code)) undoMove(saved_board);
-        else treated_confs.add(hash_code);
+        else{
+            treated_confs.add(hash_code);
+            if (lastcell != null)j.updateScore(lastcell.getBille().getColor());
+        }
         //
 
     }

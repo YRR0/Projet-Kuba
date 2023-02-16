@@ -79,15 +79,26 @@ public class Board{
                 count -= 2;
             }
         }
+    } 
+
+    private Cell getLastCell(Direction dir, Position pos){
+        switch (dir){
+            case NORD:return board[0][pos.gPosJ()];
+            case SUD:return board[board.length-1][pos.gPosJ()];
+            case EST:return board[pos.gPosI()][0];
+            default:return board[pos.gPosI()][board[0].length];
+        }
     }
 
-    public void move(Position pos, Direction dir) {
+    public void move(Joueur j, Position pos, Direction dir) {
         int x = pos.gPosI(), y = pos.gPosJ();
         int dx = dir.gDirI(), dy = dir.gDirJ();
 
         //
         Cell[][] saved_board = copyBoard();
         //
+
+        if (j.) return;
 
         while(estDansLimite(x+dx, y+dy) && !board[x][y].estVide()) {
             x += dx;

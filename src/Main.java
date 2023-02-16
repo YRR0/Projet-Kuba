@@ -1,3 +1,4 @@
+import model.mouvement.*;
 import model.plateau.Board;
 
 public class Main {

@@ -1,11 +1,14 @@
 package model.plateau;
 
+import model.Couleur;
+
 public class Joueur {
 
     private String nom; 
     private int nbBille;
     private int nbBilleRougeCapturer;
     private boolean noire;
+    private Couleur couleur;
 
 
     public Joueur(String nom, int taille, boolean noire )
@@ -14,6 +17,7 @@ public class Joueur {
         this.nbBille = 2*(taille*taille);
         this.noire = noire;
         this.nbBilleRougeCapturer = 0;
+        this.couleur = (noire) ? Couleur.NOIR : Couleur.BLANC;
     }
 
     public boolean emptyBille()

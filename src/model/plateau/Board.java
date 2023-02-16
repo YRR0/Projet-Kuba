@@ -98,7 +98,9 @@ public class Board{
         Cell[][] saved_board = copyBoard();
         //
 
-        if (j.) return;
+        if (!j.getCouleur()
+              .equals(getLastCell(dir, pos).
+                        getBille().getColor())) return;
 
         while(estDansLimite(x+dx, y+dy) && !board[x][y].estVide()) {
             x += dx;

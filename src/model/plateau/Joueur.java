@@ -20,6 +20,10 @@ public class Joueur {
         this.couleur = (noire) ? Couleur.NOIR : Couleur.BLANC;
     }
 
+    public Couleur getCouleur(){
+        return couleur;
+    }
+
     public boolean emptyBille()
     {
         return nbBille == 0;

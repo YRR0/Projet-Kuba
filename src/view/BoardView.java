@@ -8,7 +8,7 @@ import model.plateau.Board;
 
 public class BoardView extends JPanel implements Observer{
     private  Board board;
-    private CellView[][] view;
+    private CellView[][] view; 
     public BoardView(Board b){
         super();
         this.setLayout(null);

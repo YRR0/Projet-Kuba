@@ -22,11 +22,12 @@ public class Board {
         this.n = n;
         int k = 4 * n - 1;
         board = new Cell[k][k];
-        keys  = new Long[3][k*k];
-        initKeys();
+        if(keys == null) initKeys();
     }
 
-    private static void initKeys() {
+    private void initKeys() {
+        int k = this.size();
+        keys  = new Long[3][k*k];
         for(int i = 0; i < keys.length; i++) {
             for(int j = 0; j < keys[i].length; j++) {
                 keys[i][j] = new Random().nextLong();

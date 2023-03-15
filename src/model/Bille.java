@@ -1,6 +1,8 @@
 package model;
 
 import javax.imageio.ImageIO;
+import model.mouvement.Direction;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,13 +16,43 @@ public class Bille implements Cloneable, Serializable{
     private transient BufferedImage image;
     public static final int scale = 7;
     private AnimationBille animate = null;
+    private int x,y;
 
-    public void createAnimation(int x, int y, int d_x, int d_y, int dx, int dy){
+    public void collide(Bille b, Direction d){
+        switch (d){
+            case NORD:
+                if (animate.y - Bille.width/2 == b.animate.y + Bille.width)
+                    b.createAnimation(b.x, b.y-Bille.width, 0, -1);
+            break;
+            case SUD:
+                if (animate.y + Bille.width/2 == b.animate.y - Bille.width)
+                    b.createAnimation(b.x, b.y+Bille.width, 0, 1);
+            break;
+            case OUEST:
+                if (animate.x - Bille.width/2 == b.animate.x + Bille.width)
+                    b.createAnimation(b.x-Bille.width, b.y, -1, 0);
+            break;
+            case EST:
+                if (animate.x + Bille.width/2 == b.animate.x - Bille.width)
+                    b.createAnimation(b.x+Bille.width, b.y, 1, 0);
+            break;
+        }
+    }
+
+    public int offset(int x){
+        return x+Bille.width/2;
+    }
+
+    public void createAnimation(int d_x, int d_y, int dx, int dy){
         animate = new AnimationBille(x, y, d_x, d_y, dx, dy);
     }
 
     public AnimationBille getAnimation(){
         return animate;
+    }
+
+    public boolean is_animate(){
+        return animate != null;
     }
 
     public static class AnimationBille{
@@ -45,7 +77,9 @@ public class Bille implements Cloneable, Serializable{
         }
     }
 
-    public Bille(Couleur c){
+    public Bille(Couleur c, int x, int y){
+        this.x = offset(x);
+        this.y = offset(y);
         color = c;
         String imageDesc = switch (color) {
             case NOIR -> "black";
@@ -74,7 +108,7 @@ public class Bille implements Cloneable, Serializable{
 
     @Override
     public Object clone(){
-        return new Bille(color);
+        return new Bille(color, x, y);
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {

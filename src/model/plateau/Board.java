@@ -79,8 +79,9 @@ public class Board extends JPanel implements SubjectObserver{
     private void initWhite() {
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
-                board(i, j).setBille(new Bille(Couleur.BLANC));
-                board(board.length-1 - i, board.length-1 - j).setBille(new Bille(Couleur.BLANC));
+                board(i, j).setBille(new Bille(Couleur.BLANC, i, j));
+                board(board.length-1 - i, board.length-1 - j).
+                    setBille(new Bille(Couleur.BLANC,board.length-1 - i,board.length-1 - j));
             }
         }
     }
@@ -88,8 +89,8 @@ public class Board extends JPanel implements SubjectObserver{
     private void initBlack() {
         for(int i = 0; i < n; i++) {
             for(int j = board[i].length-1; j >= board[i].length-n; j--) {
-                board(i, j).setBille(new Bille(Couleur.NOIR));
-                board(j, i).setBille(new Bille(Couleur.NOIR));
+                board(i, j).setBille(new Bille(Couleur.NOIR,i,j));
+                board(j, i).setBille(new Bille(Couleur.NOIR,j,i));
             }
         }
     }
@@ -103,7 +104,7 @@ public class Board extends JPanel implements SubjectObserver{
                 spaces = i + 1 - (k/2);
             }
             for(int j = 0; j < count; j++) {
-                board(i, j+spaces).setBille(new Bille(Couleur.ROUGE));
+                board(i, j+spaces).setBille(new Bille(Couleur.ROUGE,i,j+spaces));
             }
             if(i < k/2) {
                 count += 2;
@@ -297,6 +298,10 @@ public class Board extends JPanel implements SubjectObserver{
                 }
             }
         }
+    }
+
+    public void animate(){
+
     }
 
     private void drawGrid(Graphics2D graphics2D) {

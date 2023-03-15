@@ -12,6 +12,7 @@ public class Bille implements Cloneable, Serializable{
     private Couleur color;
     public static final int width = 50;
     private transient BufferedImage image;
+    public static final int scale = 7;
 
     public Bille(Couleur c){
         color = c;

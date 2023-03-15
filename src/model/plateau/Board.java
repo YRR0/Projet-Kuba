@@ -291,8 +291,9 @@ public class Board extends JPanel implements SubjectObserver{
         for (int i=0;i<board.length;i++){
             for (int j=0;j<board.length;j++){
                 if (!board(j, i).estVide()){
-                    graphics2D.drawImage(board(j, i).getBille().image(), i*Bille.width, j*Bille.width,
-                                                         Bille.width, Bille.width, null);
+                    graphics2D.drawImage(board(j, i).getBille().image(), i*Bille.width+(Bille.scale/2), 
+                                                j*Bille.width+(Bille.scale/2),Bille.width-Bille.scale, 
+                                                Bille.width-Bille.scale, null);
                 }
             }
         }

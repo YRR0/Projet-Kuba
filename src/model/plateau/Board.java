@@ -1,5 +1,6 @@
 package model.plateau;
 
+import java.lang.Thread;
 import java.util.*;
 import model.Bille;
 import model.Couleur;
@@ -28,6 +29,7 @@ public class Board extends JPanel implements SubjectObserver{
     private ArrayList<Observer> observers;
     private ArrayList<Joueur> joueurs;
     private int currentPlayer;
+    private static int sleep_time = 100;
 
     public Board(int n) {
         joueurs = new ArrayList<>();
@@ -294,9 +296,7 @@ public class Board extends JPanel implements SubjectObserver{
         for (int i=0;i<board.length;i++){
             for (int j=0;j<board.length;j++){
                 if (!board(j, i).estVide()){
-                    graphics2D.drawImage(board(j, i).getBille().image(), i*Bille.width+(Bille.scale/2), 
-                                                j*Bille.width+(Bille.scale/2),Bille.width-Bille.scale, 
-                                                Bille.width-Bille.scale, null);
+                    
                 }
             }
         }
@@ -305,7 +305,19 @@ public class Board extends JPanel implements SubjectObserver{
     public void animate(Graphics2D graphics2D){
         for (int i=0;i<board.length;i++){
             for (int j=0;j<board.length;j++){
-                if ()
+                Bille b = board(j, i).getBille();
+                graphics2D.drawImage(b.image(), b.getX()+(Bille.scale/2), 
+                                                b.getY()+(Bille.scale/2),Bille.width-Bille.scale, 
+                                                Bille.width-Bille.scale, null);
+                b.update(
+                    board(new Position(i, j).next(b.getAnimation().getDirection())).getBille()
+                );
+                try {
+                    Thread.sleep(sleep_time);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
     }

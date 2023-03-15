@@ -18,33 +18,55 @@ public class Bille implements Cloneable, Serializable{
     private AnimationBille animate = null;
     private int x,y;
 
-    public void collide(Bille b, Direction d){
+    public int getX(){
+        return animate != null? animate.x:x;
+    }
+
+    public int gety(){
+        return animate != null? animate.y:y;
+    }
+
+    //to check for collision
+    public void update(Bille b, Direction d){
         switch (d){
             case NORD:
                 if (animate.y - Bille.width/2 == b.animate.y + Bille.width)
-                    b.createAnimation(b.x, b.y-Bille.width, 0, -1);
+                    b.createAnimation(d);
             break;
             case SUD:
                 if (animate.y + Bille.width/2 == b.animate.y - Bille.width)
-                    b.createAnimation(b.x, b.y+Bille.width, 0, 1);
+                    b.createAnimation(d);
             break;
             case OUEST:
                 if (animate.x - Bille.width/2 == b.animate.x + Bille.width)
-                    b.createAnimation(b.x-Bille.width, b.y, -1, 0);
+                    b.createAnimation(d);
             break;
             case EST:
                 if (animate.x + Bille.width/2 == b.animate.x - Bille.width)
-                    b.createAnimation(b.x+Bille.width, b.y, 1, 0);
+                    b.createAnimation(d);
             break;
         }
     }
 
-    public int offset(int x){
+    private int offset(int x){
         return x+Bille.width/2;
     }
 
-    public void createAnimation(int d_x, int d_y, int dx, int dy){
-        animate = new AnimationBille(x, y, d_x, d_y, dx, dy);
+    public void createAnimation(Direction d){
+        switch (d){
+            case NORD:
+                animate = new AnimationBille(x, y, x, y-Bille.width, 0, -1);
+            break;
+            case SUD:
+                animate = new AnimationBille(x, y, x, y+Bille.width, 0, 1);
+            break;
+            case OUEST:
+                animate = new AnimationBille(x, y, x-Bille.width, y, -1, 0);
+            break;
+            case EST:
+                animate = new AnimationBille(x, y, x+Bille.width, y, 1, 0);
+            break;
+        }
     }
 
     public AnimationBille getAnimation(){
@@ -78,8 +100,8 @@ public class Bille implements Cloneable, Serializable{
     }
 
     public Bille(Couleur c, int x, int y){
-        this.x = offset(x);
-        this.y = offset(y);
+        this.x = offset(x*Bille.width);
+        this.y = offset(y*Bille.width);
         color = c;
         String imageDesc = switch (color) {
             case NOIR -> "black";

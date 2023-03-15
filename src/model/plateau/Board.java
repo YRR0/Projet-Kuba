@@ -170,6 +170,8 @@ public class Board extends JPanel implements SubjectObserver{
             next = next.prev(dir);
         }
 
+        board(pos.getI(), pos.getJ()).getBille().createAnimation(dir);
+
         while (!next.equals(pos) && board(next).estVide()) { // Décaler les pions
             Position prev = next.prev(dir);
             updatePosition(prev, next);
@@ -300,8 +302,12 @@ public class Board extends JPanel implements SubjectObserver{
         }
     }
 
-    public void animate(){
-
+    public void animate(Graphics2D graphics2D){
+        for (int i=0;i<board.length;i++){
+            for (int j=0;j<board.length;j++){
+                if ()
+            }
+        }
     }
 
     private void drawGrid(Graphics2D graphics2D) {

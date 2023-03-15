@@ -13,6 +13,37 @@ public class Bille implements Cloneable, Serializable{
     public static final int width = 50;
     private transient BufferedImage image;
     public static final int scale = 7;
+    private AnimationBille animate = null;
+
+    public void createAnimation(int x, int y, int d_x, int d_y, int dx, int dy){
+        animate = new AnimationBille(x, y, d_x, d_y, dx, dy);
+    }
+
+    public AnimationBille getAnimation(){
+        return animate;
+    }
+
+    public static class AnimationBille{
+        private int x;
+        private int y;
+        private int d_x;
+        private int d_y;
+        private int dx;
+        private int dy;
+
+        public AnimationBille(int x, int y, int d_x, int d_y, int dx, int dy){
+            this.x = x;this.y=y;this.d_x = d_x;this.d_y=d_y;this.dx=dx;this.dy=dy;
+        }
+
+        public void move(){
+            x+=dx;
+            y+=dy;
+        }
+
+        public boolean is_moving(){
+            return x==d_x && y==d_y;
+        }
+    }
 
     public Bille(Couleur c){
         color = c;

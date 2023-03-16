@@ -328,8 +328,9 @@ public class Board extends JPanel implements SubjectObserver{
                                                     b.getY()+(Bille.scale/2),Bille.width-Bille.scale, 
                                                     Bille.width-Bille.scale, null);
                     if (b.is_animate()){
+                        Position neibPos = new Position(i, j).next(b.getAnimation().getDirection());
                         b.update(
-                            board(new Position(i, j).next(b.getAnimation().getDirection())).getBille()
+                            estDansLimite(neibPos) ? board(neibPos).getBille():null
                         );
 
                     }

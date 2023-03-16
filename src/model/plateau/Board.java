@@ -167,7 +167,7 @@ public class Board extends JPanel implements SubjectObserver{
         Position next = pos.next(dir); // Trouver la limite
         while(estDansLimite(next) && !estVide(next)) { // avec next tant que c'est possible
             next = next.next(dir);
-        }
+        } 
         Position fin = next;  // Pour revenir en arriere si le mouvement n'est pas valid (un curseur backup)
         if(!estDansLimite(next)) { // là, il faut sortir les billes
             Position limit = next.prev(dir); // La limite du tableau
@@ -175,9 +175,6 @@ public class Board extends JPanel implements SubjectObserver{
             fin = limit;
             next = next.prev(dir);
         }
-
-        Bille b = board(pos.getI(), pos.getJ()).getBille();
-        b.createAnimation(dir);
 
         while (!next.equals(pos) && board(next).estVide()) { // Décaler les pions
             Position prev = next.prev(dir);
@@ -194,6 +191,10 @@ public class Board extends JPanel implements SubjectObserver{
             }
             return false;
         } else {
+            Bille b = board((new Position(pos.getI(), pos.getJ())
+                            .next(dir)))
+                            .getBille();
+            b.createAnimation(dir);
             treated_confs.add(hash_code);
         }
         return true;

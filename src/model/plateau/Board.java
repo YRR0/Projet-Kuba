@@ -1,7 +1,7 @@
 package model.plateau;
 
-import java.lang.Thread;
 import java.util.*;
+import java.util.Timer;
 import model.Bille;
 import model.Couleur;
 import model.Joueur;
@@ -15,6 +15,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.MouseInfo;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -29,9 +30,12 @@ public class Board extends JPanel implements SubjectObserver{
     private ArrayList<Observer> observers;
     private ArrayList<Joueur> joueurs;
     private int currentPlayer;
-    private static int sleep_time = 100;
+    private static int sleep_time = 5;
+    private Timer timer;
+    private Date dt;
 
     public Board(int n) {
+        timer = new Timer();
         joueurs = new ArrayList<>();
         observers = new ArrayList<>();
         this.treated_confs = new HashSet<>();
@@ -106,6 +110,7 @@ public class Board extends JPanel implements SubjectObserver{
                 spaces = i + 1 - (k/2);
             }
             for(int j = 0; j < count; j++) {
+                System.out.println(i);
                 board(i, j+spaces).setBille(new Bille(Couleur.ROUGE,i,j+spaces));
             }
             if(i < k/2) {
@@ -189,7 +194,6 @@ public class Board extends JPanel implements SubjectObserver{
             }
             return false;
         } else {
-            repaint();
             treated_confs.add(hash_code);
         }
         return true;
@@ -293,31 +297,48 @@ public class Board extends JPanel implements SubjectObserver{
     public void paintComponent(Graphics g) {
         Graphics2D graphics2D = (Graphics2D) g;
         drawGrid(graphics2D);
-        for (int i=0;i<board.length;i++){
-            for (int j=0;j<board.length;j++){
-                if (!board(j, i).estVide()){
-                    
-                }
-            }
-        }
+        lanchAnimation(graphics2D);
     }
 
-    public void animate(Graphics2D graphics2D){
+    public void StatAnimation(){
+        dt = new Date (System.currentTimeMillis () + 5);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                update();
+            }
+            
+        }, dt);
+
+    }
+
+    private TimerTask update(){
+        return new TimerTask() {
+            @Override
+            public void run() {
+                MouseInfo.getPointerInfo ();
+                repaint();
+                dt = new Date (dt.getTime () + 5);
+		        timer.schedule(update (), dt);
+            }
+        };   
+    }
+
+    public void lanchAnimation(Graphics2D graphics2D){
         for (int i=0;i<board.length;i++){
             for (int j=0;j<board.length;j++){
                 Bille b = board(j, i).getBille();
-                graphics2D.drawImage(b.image(), b.getX()+(Bille.scale/2), 
-                                                b.getY()+(Bille.scale/2),Bille.width-Bille.scale, 
-                                                Bille.width-Bille.scale, null);
-                b.update(
-                    board(new Position(i, j).next(b.getAnimation().getDirection())).getBille()
-                );
-                try {
-                    Thread.sleep(sleep_time);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                if (b != null){
+                    graphics2D.drawImage(b.image(), b.getY()+(Bille.scale/2), 
+                                                    b.getX()+(Bille.scale/2),Bille.width-Bille.scale, 
+                                                    Bille.width-Bille.scale, null);
+                    if (b.is_animate()){
+                        b.update(
+                            board(new Position(j, i).next(b.getAnimation().getDirection())).getBille()
+                        );
 
+                    }
+                }
             }
         }
     }

@@ -29,6 +29,7 @@ public class Bille implements Cloneable, Serializable{
     //to check for collision
     public void update(Bille b){
         if (is_animate()){
+            b.animate.move();
             switch (animate.d){
                 case NORD:
                     if (animate.y - Bille.width/2 == b.animate.y + Bille.width)
@@ -50,9 +51,6 @@ public class Bille implements Cloneable, Serializable{
         }
     }
 
-    private int offset(int x){
-        return x+Bille.width/2;
-    }
 
     public void createAnimation(Direction d){
         switch (d){
@@ -75,7 +73,7 @@ public class Bille implements Cloneable, Serializable{
         return animate;
     }
 
-    private boolean is_animate(){
+    public boolean is_animate(){
         return animate != null;
     }
 
@@ -107,9 +105,9 @@ public class Bille implements Cloneable, Serializable{
         }
     }
 
-    public Bille(Couleur c, int x, int y){
-        this.x = offset(x*Bille.width);
-        this.y = offset(y*Bille.width);
+    public Bille(Couleur c, int x_, int y_){
+        this.x = x_*Bille.width;
+        this.y = y_*Bille.width;
         color = c;
         String imageDesc = switch (color) {
             case NOIR -> "black";
@@ -138,7 +136,7 @@ public class Bille implements Cloneable, Serializable{
 
     @Override
     public Object clone(){
-        return new Bille(color, x, y);
+        return new Bille(color, x/Bille.width, y/Bille.width);
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {

@@ -40,12 +40,12 @@ public class MatchView extends JPanel {
         });
 
         plateau.setBounds(0,0,598,598);
-        p1.setBounds(648, 123, 275, 165);
-        p2.setBounds(648, 287, 275, 165);
+        p1.setBounds(648, 123, 275, 162);
+        p2.setBounds(648, 287, 275, 162);
         undo.setBounds(680, 475, 55, 55);
         redo.setBounds(840, 475, 55, 55);
         confirm.setBounds(760, 475, 55, 55);
-        leave.setBounds(720, 550, 55, 55);
+        leave.setBounds(860, 560, 55, 55);
 
         add(plateau);
         add(p1);
@@ -54,7 +54,7 @@ public class MatchView extends JPanel {
         add(confirm);
         add(undo);
         add(redo);
-        p1.setBackground(new Color(15,5,0,50));
+        p1.setBackground(new Color(255,120,0,50));
     }
 
     public void update(){

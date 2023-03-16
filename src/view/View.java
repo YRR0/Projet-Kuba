@@ -1,16 +1,14 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-
 import javax.swing.*;
 
 import model.Couleur;
 import model.Joueur;
 
-public class View extends JFrame {
+public class View extends JFrame implements MouseListener {
     static View accessor;
     JComboBox<String> boardSizes;
     JTextField playerOne = new JTextField("Joueur 1");
@@ -24,6 +22,7 @@ public class View extends JFrame {
         setSize(1000,735);
         setTitle("Kuba");
         setLayout(null);
+        setResizable(false);
         
         accessor = this;
         menu = new JLabel("",new ImageIcon("src/resources/main_title.png"), JLabel.CENTER);
@@ -43,8 +42,10 @@ public class View extends JFrame {
 
         playerOne.setBackground(new Color(255,255,255,70));
         playerOne.setFont(new Font("Arial", Font.BOLD, 18));
+        playerOne.addMouseListener(this);
         playerTwo.setBackground(new Color(255,255,255,70));
         playerTwo.setFont(new Font("Arial", Font.BOLD, 18));
+        playerTwo.addMouseListener(this);
 
         JLabel text = new JLabel("Taille du plateau");
         text.setFont(new Font("Arial", Font.BOLD, 18));
@@ -65,7 +66,6 @@ public class View extends JFrame {
                 frame.invalidate();
                 frame.validate();
             } 
-            
         });
 
         playerOne.setBounds(125,375,200,50);
@@ -92,5 +92,46 @@ public class View extends JFrame {
         this.setContentPane(menu);
         game = new JLabel("",new ImageIcon("src/resources/background.png"), JLabel.CENTER);
         match = null;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e){
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e){
+        if(e.getSource() == playerOne) playerOne.setBackground(Color.WHITE);
+
+        if(e.getSource() == playerTwo) playerTwo.setBackground(Color.WHITE);        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if (e.getSource()==playerOne){
+            if(playerOne.getText().equals("")) playerOne.setText("Joueur 1");
+            playerOne.setBackground(new Color(255,255,255,70));
+        }
+        if (e.getSource()==playerTwo){
+            if(playerTwo.getText().equals("")) playerTwo.setText("Joueur 2");
+            playerTwo.setBackground(new Color(255,255,255,70));
+        }  
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e){
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e){
+        if (e.getSource()==playerOne){
+            if (playerOne.getText().equals("Joueur 1")) playerOne.setText("");
+            playerOne.setBackground(Color.WHITE);
+        }
+        if (e.getSource()==playerTwo){
+            if (playerTwo.getText().equals("Joueur 2")) playerTwo.setText("");
+            playerTwo.setBackground(Color.WHITE);
+        }
     }
 }

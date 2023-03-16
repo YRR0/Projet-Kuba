@@ -230,7 +230,9 @@ public class Board extends JPanel {
 
     private void drawGrid(Graphics2D graphics2D) {
         graphics2D.setColor(Color.LIGHT_GRAY);
+        graphics2D.setStroke(new BasicStroke(80/k));
         graphics2D.fillRect(0, 0, 598, 598);
+        graphics2D.setStroke(new BasicStroke(80/k));
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[i].length; j++) {
                 if(i != board.length-1 && j != board[i].length-1) {

@@ -34,8 +34,7 @@ public class Cell extends JLabel implements Cloneable, MouseListener, Observer{
     }
 
     public Bille getBille() {
-        if (bille != null) return (Bille) bille.clone();
-        else return null;
+        return bille;
     }
 
     public boolean estVide() {

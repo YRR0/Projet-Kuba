@@ -46,6 +46,7 @@ public class Board extends JPanel implements SubjectObserver{
         initKeys();
         setLayout(new GridLayout(k, k));
         setPreferredSize(new Dimension(k*size, k*size));
+
     }
 
     public void addJoueur(Joueur j){
@@ -80,14 +81,15 @@ public class Board extends JPanel implements SubjectObserver{
         initWhite();
         initBlack();
         initRed();
+        StatAnimation();
     }
 
     private void initWhite() {
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
-                board(i, j).setBille(new Bille(Couleur.BLANC, i, j));
+                board(i, j).setBille(new Bille(Couleur.BLANC, j, i));
                 board(board.length-1 - i, board.length-1 - j).
-                    setBille(new Bille(Couleur.BLANC,board.length-1 - i,board.length-1 - j));
+                    setBille(new Bille(Couleur.BLANC,board.length-1 - j,board.length-1 - i));
             }
         }
     }
@@ -95,8 +97,8 @@ public class Board extends JPanel implements SubjectObserver{
     private void initBlack() {
         for(int i = 0; i < n; i++) {
             for(int j = board[i].length-1; j >= board[i].length-n; j--) {
-                board(i, j).setBille(new Bille(Couleur.NOIR,i,j));
-                board(j, i).setBille(new Bille(Couleur.NOIR,j,i));
+                board(i, j).setBille(new Bille(Couleur.NOIR,j,i));
+                board(j, i).setBille(new Bille(Couleur.NOIR,i,j));
             }
         }
     }
@@ -110,8 +112,7 @@ public class Board extends JPanel implements SubjectObserver{
                 spaces = i + 1 - (k/2);
             }
             for(int j = 0; j < count; j++) {
-                System.out.println(i);
-                board(i, j+spaces).setBille(new Bille(Couleur.ROUGE,i,j+spaces));
+                board(i, j+spaces).setBille(new Bille(Couleur.ROUGE,j+spaces,i));
             }
             if(i < k/2) {
                 count += 2;
@@ -149,8 +150,6 @@ public class Board extends JPanel implements SubjectObserver{
     }
 
 
-
-
     public boolean update(Position pos, Direction dir, Joueur joueur) {
         // Le joueur ne peut bouger que les billes de sa propre couleur
         if(!ColorAt(pos).equals(joueur.getCouleur())) {
@@ -177,7 +176,8 @@ public class Board extends JPanel implements SubjectObserver{
             next = next.prev(dir);
         }
 
-        board(pos.getI(), pos.getJ()).getBille().createAnimation(dir);
+        Bille b = board(pos.getI(), pos.getJ()).getBille();
+        b.createAnimation(dir);
 
         while (!next.equals(pos) && board(next).estVide()) { // Décaler les pions
             Position prev = next.prev(dir);
@@ -297,18 +297,12 @@ public class Board extends JPanel implements SubjectObserver{
     public void paintComponent(Graphics g) {
         Graphics2D graphics2D = (Graphics2D) g;
         drawGrid(graphics2D);
-        lanchAnimation(graphics2D);
+        animate(graphics2D);
     }
 
     public void StatAnimation(){
-        dt = new Date (System.currentTimeMillis () + 5);
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                update();
-            }
-            
-        }, dt);
+        dt = new Date (System.currentTimeMillis () + sleep_time);
+        timer.schedule(update(), dt);
 
     }
 
@@ -318,23 +312,23 @@ public class Board extends JPanel implements SubjectObserver{
             public void run() {
                 MouseInfo.getPointerInfo ();
                 repaint();
-                dt = new Date (dt.getTime () + 5);
+                dt = new Date (dt.getTime () + sleep_time);
 		        timer.schedule(update (), dt);
             }
         };   
     }
 
-    public void lanchAnimation(Graphics2D graphics2D){
+    public void animate(Graphics2D graphics2D){
         for (int i=0;i<board.length;i++){
             for (int j=0;j<board.length;j++){
-                Bille b = board(j, i).getBille();
+                Bille b = board(i, j).getBille();
                 if (b != null){
-                    graphics2D.drawImage(b.image(), b.getY()+(Bille.scale/2), 
-                                                    b.getX()+(Bille.scale/2),Bille.width-Bille.scale, 
+                    graphics2D.drawImage(b.image(), b.getX()+(Bille.scale/2), 
+                                                    b.getY()+(Bille.scale/2),Bille.width-Bille.scale, 
                                                     Bille.width-Bille.scale, null);
                     if (b.is_animate()){
                         b.update(
-                            board(new Position(j, i).next(b.getAnimation().getDirection())).getBille()
+                            board(new Position(i, j).next(b.getAnimation().getDirection())).getBille()
                         );
 
                     }

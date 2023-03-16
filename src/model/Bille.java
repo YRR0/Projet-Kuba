@@ -19,34 +19,42 @@ public class Bille implements Cloneable, Serializable{
     private int x,y;
 
     public int getX(){
-        return animate != null? animate.x:x;
+        return x;
     }
 
     public int getY(){
-        return animate != null? animate.y:y;
+        return y;
+    }
+
+    private void updatePos(){
+        this.x = animate.x;
+        this.y = animate.y;
     }
 
     //to check for collision
     public void update(Bille b){
         if (is_animate()){
-            b.animate.move();
-            switch (animate.d){
-                case NORD:
-                    if (animate.y - Bille.width/2 == b.animate.y + Bille.width)
-                        b.createAnimation(animate.d);
-                break;
-                case SUD:
-                    if (animate.y + Bille.width/2 == b.animate.y - Bille.width)
-                        b.createAnimation(animate.d);
-                break;
-                case OUEST:
-                    if (animate.x - Bille.width/2 == b.animate.x + Bille.width)
-                        b.createAnimation(animate.d);
-                break;
-                case EST:
-                    if (animate.x + Bille.width/2 == b.animate.x - Bille.width)
-                        b.createAnimation(animate.d);
-                break;
+            animate.move();
+            updatePos();
+            if (b != null && !b.is_animate()){
+                switch (animate.d){
+                    case NORD:
+                        if (y == b.y + Bille.width/2)
+                            b.createAnimation(animate.d);
+                    break;
+                    case SUD:
+                        if (y + Bille.width/2 == b.y)
+                            b.createAnimation(animate.d);
+                    break;
+                    case OUEST:
+                        if (x == b.x + Bille.width/2)
+                            b.createAnimation(animate.d);
+                    break;
+                    case EST:
+                        if (x + Bille.width/2 == b.x)
+                            b.createAnimation(animate.d);
+                    break;
+                }
             }
         }
     }
@@ -74,7 +82,7 @@ public class Bille implements Cloneable, Serializable{
     }
 
     public boolean is_animate(){
-        return animate != null;
+        return animate != null && animate.is_moving();
     }
 
     public static class AnimationBille{
@@ -91,13 +99,17 @@ public class Bille implements Cloneable, Serializable{
             this.d = d;
         }
 
+        public AnimationBille(AnimationBille an){
+            this(an.x, an.y, an.d_x, an.d_y, an.dx, an.dy, an.d);
+        }
+
         public void move(){
             x+=dx;
             y+=dy;
         }
 
         public boolean is_moving(){
-            return x==d_x && y==d_y;
+            return x!=d_x || y!=d_y;
         }
 
         public Direction getDirection(){
@@ -136,7 +148,10 @@ public class Bille implements Cloneable, Serializable{
 
     @Override
     public Object clone(){
-        return new Bille(color, x/Bille.width, y/Bille.width);
+        Bille b = new Bille(color, x/Bille.width, y/Bille.width);
+        if (animate != null) b.animate = new AnimationBille(animate);
+
+        return b;
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
@@ -150,5 +165,6 @@ public class Bille implements Cloneable, Serializable{
         color = (Couleur) in.readObject();
         image = ImageIO.read(in);
     }
+
 
 }

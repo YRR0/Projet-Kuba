@@ -1,28 +1,27 @@
-package view;
+package com.kuba.vue;
 
 import java.awt.*;
 import javax.swing.*;
-import model.Joueur;
+import com.kuba.model.player.Joueur;
 
 public class PlayerView extends JPanel {
-    private JLabel nom;
     private JLabel billesCapturesR;
     private JLabel billesRestantes;
-    private Joueur joueur;
+    private final Joueur joueur;
 
     public PlayerView(Joueur j){
         setBackground(new Color(0,0,0,0));
         setLayout(null);
         joueur = j;
-        nom = new JLabel(j.getNom());
+        JLabel nom = new JLabel(j.getNom());
         nom.setFont(new Font("Serif", Font.BOLD, 22));
         JLabel lab1 = new JLabel("Billes restantes");
         lab1.setFont(new Font("Serif", Font.BOLD, 14));
         JLabel lab2 = new JLabel("Billes rouges capturées");
         lab2.setFont(new Font("Serif", Font.BOLD, 14));
-        billesRestantes = new JLabel(j.getNbAdversaireCapture()+"");
+        billesRestantes = new JLabel(j.getNbAdversaireCapturee()+"");
         billesRestantes.setFont(new Font("Serif", Font.BOLD, 15));
-        billesCapturesR = new JLabel(j.getNbBilleRougeCapturer()+"");
+        billesCapturesR = new JLabel(j.getNbBilleRougeCapturee()+"");
         billesCapturesR.setFont(new Font("Serif", Font.BOLD, 15));
 
         nom.setBounds( 18, 13,200, 40);
@@ -39,8 +38,8 @@ public class PlayerView extends JPanel {
     }
 
     public void update(){
-        billesRestantes = new JLabel(joueur.getNbAdversaireCapture()+"");
-        billesCapturesR = new JLabel(joueur.getNbBilleRougeCapturer()+"");
+        billesRestantes = new JLabel(joueur.getNbAdversaireCapturee()+"");
+        billesCapturesR = new JLabel(joueur.getNbBilleRougeCapturee()+"");
         this.repaint();
     }
 }

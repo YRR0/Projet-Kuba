@@ -114,7 +114,7 @@ public class View extends JFrame implements MouseListener {
         }
         if (e.getSource()==playerTwo){
             if(playerTwo.getText().equals("")) playerTwo.setText("Joueur 2");
-            playerTwo.setBackground(new Color(255,255,255,70));
+            playerTwo.setBackground(new Color(255,255,255,0));
         }  
     }
 

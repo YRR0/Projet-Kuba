@@ -16,31 +16,30 @@ import java.util.Date;
 public class BoardView extends JPanel implements Observer<Data> {
 
     private Data board;
-    public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    public static int HEIGHT = screenSize.height - 30;
-    public final int billeWidth;
+    public static int HEIGHT = 598;
     private final Timer timer;
     private static final int sleep_time = 5;
     private Date dt;
+    private int size;
 
-    public BoardView(Board board) {
+    public BoardView(Board board, int N) {
+        size = N;
+        setBackground(new Color(0,0,0,0));
         timer = new Timer();
         this.board = board;
         board.addObserver(this);
-        billeWidth = screenSize.height / board.size();
-        setPreferredSize(new Dimension(HEIGHT, HEIGHT));
-        setSize(new Dimension(HEIGHT, HEIGHT));
+        setPreferredSize(new Dimension(598, 598));
+        setSize(new Dimension(600, 600));
         StatAnimation();
     }
     private void drawGrid(Graphics2D graphics2D) {
-        graphics2D.setColor(Color.LIGHT_GRAY);
-        graphics2D.fillRect(0, 0, HEIGHT, HEIGHT);
         for(int i = 0; i < board.size(); i++) {
             for(int j = 0; j < board.size(); j++) {
                 if(i != board.size()-1 && j != board.size()-1) {
                     graphics2D.setColor(Color.BLACK);
-                    graphics2D.drawRect(j * Bille.width + (Bille.width / 2), i * Bille.width + (Bille.width / 2), 
-                    Bille.width, Bille.width);
+                    graphics2D.setStroke(new BasicStroke(100/size));
+                    int width = 598/size;
+                    graphics2D.drawRect(j * width + (width / 2), i * width + (width / 2), width, width);
                 }
             }
         }

@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import com.kuba.Game;
 import com.kuba.controller.GameController;
 import com.kuba.model.plateau.Board;
 import com.kuba.model.player.Joueur;
@@ -12,18 +13,16 @@ public class GameView extends JPanel {
     private final PlayerView p1, p2;
     private BoardView boardView;
     private JButton leave, confirm, undo, redo;
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    JPanel background = new Background("src/resources/background.png", new Dimension(1000, 700));
+    Game game;
 
-
-    public GameView(int N, Joueur j1, Joueur j2) {
+    public GameView(int N, Joueur j1, Joueur j2, Game g) {
+        game = g;
         setLayout(null);
-        setSize(screenSize);
-        setPreferredSize(screenSize);
-        setBackground(new Color(0,0,0,0));
+        setSize(1000, 700);
         Board plateau = new Board(N);
-        boardView = new BoardView(plateau);
+        boardView = new BoardView(plateau, 4*N-1);
         new GameController(plateau, j1, j2);
-        //plateau.setBorder(new EmptyBorder(0, 0, getHeight(), getHeight()));
         p1 = new PlayerView(j1);
         p2 = new PlayerView(j2);
         undo = new JButton(new ImageIcon("src/resources/undo.png"));
@@ -40,25 +39,26 @@ public class GameView extends JPanel {
         leave.setBorderPainted(false);
         leave.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                game.moveToMenu();
             } 
         });
 
-        boardView.setBounds(0,0,598,598);
-        p1.setBounds(648, 123, 275, 162);
-        p2.setBounds(648, 287, 275, 162);
-        undo.setBounds(680, 475, 55, 55);
-        redo.setBounds(840, 475, 55, 55);
-        confirm.setBounds(760, 475, 55, 55);
-        leave.setBounds(860, 560, 55, 55);
+        boardView.setBounds(50,50,598,598);
+        p1.setBounds(698, 173, 275, 162);
+        p2.setBounds(698, 337, 275, 162);
+        undo.setBounds(730, 525, 55, 55);
+        redo.setBounds(890, 525, 55, 55);
+        confirm.setBounds(810, 525, 55, 55);
+        leave.setBounds(910, 610, 55, 55);
 
-        add(boardView);
-        add(p1);
-        add(p2);
-        add(leave);
-        add(confirm);
-        add(undo);
-        add(redo);
+        background.add(boardView);
+        background.add(p1);
+        background.add(p2);
+        background.add(leave);
+        background.add(confirm);
+        background.add(undo);
+        background.add(redo);
+        add(background);
         p1.setBackground(new Color(255,120,0,50));
     }
 

@@ -17,11 +17,13 @@ public class Board implements Observable<Data>, Data {
     private final int n;
     private Set<Integer> treated_configs;
     private final ArrayList<Observer<Data>> elementObs;
+    public static int nbBilleRouges;
 
     public Board(int n) {
         this.treated_configs = new HashSet<>();
         this.n = n;
         Joueur.nbBille = 2 * n * n;
+        Board.nbBilleRouges = 8 * n * n - 12 * n + 5;
         int k = 4 * n - 1;
         board = new Cell[k][k];
         elementObs = new ArrayList<>();

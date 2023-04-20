@@ -61,8 +61,16 @@ public class GameController {
         }
     }
 
+    public Joueur getWinnner(){
+        
+    }
+
     public boolean gameOver(){
-        return blanc.getNbAdversaireCapturee() == noir.get
+        return 
+            blanc.getNbAdversaireCapturee() == Joueur.nbBille 
+            || noir.getNbAdversaireCapturee() == Joueur.nbBille
+            || blanc.getNbBilleRougeCapturee() >= (Board.nbBilleRouges / 2)
+            || noir.getNbBilleRougeCapturee() >= (Board.nbBilleRouges / 2);
     }
 
     private void lancerAnimationBille(){

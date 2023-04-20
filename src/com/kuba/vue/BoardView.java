@@ -15,7 +15,6 @@ import java.util.Date;
 
 public class BoardView extends JPanel implements Observer<Data> {
 
-    private boolean gameIsFinish=false;
     private Data board;
     private final BilleAnimateView[][] billeAnimateViews;
     public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -60,7 +59,6 @@ public class BoardView extends JPanel implements Observer<Data> {
 
     @Override
     public void paintComponent(Graphics g) {
-        if (gameIsFinish) return;
         Graphics2D graphics2D = (Graphics2D) g;
         drawGrid(graphics2D);
         draw(graphics2D);
@@ -84,10 +82,17 @@ public class BoardView extends JPanel implements Observer<Data> {
     }
 
     public void gameOver(String winner){
-        gameIsFinish = true;
-        add(new JLabel("GAME OVER"));
-        add(new JLabel("The winnner is : "+winner));
-        repaint();
+        JFrame popUp = new JFrame();
+
+        JPanel mainContainer = new JPanel();
+        mainContainer.add(new JLabel("Game is finish"));
+        mainContainer.add(new JLabel("The winner is "+winner+" congratulations"));
+        
+        popUp.setContentPane(mainContainer);
+        popUp.setVisible(true);
+        popUp.setTitle("game over");
+        popUp.setSize(200, 200);
+        popUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private TimerTask update() {

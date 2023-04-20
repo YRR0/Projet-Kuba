@@ -1,13 +1,15 @@
 package com.kuba;
 import java.awt.*;
+import java.io.IOException;
+
 import com.kuba.model.player.Joueur;
 import com.kuba.vue.*;
 import javax.swing.*;
 
 public class Game extends JFrame {
-    MenuView menu = new MenuView(this);
-    Settings settings = new Settings(this);
-    GameView board;
+    public MenuView menu = new MenuView(this);
+    private Settings settings = new Settings(this);
+    private GameView board;
 
     public Game() {
         setSize(1000, 735);
@@ -34,6 +36,12 @@ public class Game extends JFrame {
     public void moveToBoard(int n, Joueur j1, Joueur j2){     
         board = new GameView(n, j1, j2, this);
         setContentPane(board);
+        invalidate();
+        validate();
+    }
+
+    public void moveToEndScreen(Joueur gagnant){
+        setContentPane(new EndScreen(this, gagnant));
         invalidate();
         validate();
     }

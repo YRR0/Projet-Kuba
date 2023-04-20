@@ -6,8 +6,6 @@ import com.kuba.model.plateau.Bille;
 import com.kuba.model.plateau.Board;
 import com.kuba.observerpattern.Data;
 import com.kuba.observerpattern.Observer;
-
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,6 +15,7 @@ import java.util.Date;
 
 public class BoardView extends JPanel implements Observer<Data> {
 
+    private boolean gameIsFinish=false;
     private Data board;
     private final BilleAnimateView[][] billeAnimateViews;
     public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -61,6 +60,7 @@ public class BoardView extends JPanel implements Observer<Data> {
 
     @Override
     public void paintComponent(Graphics g) {
+        if (gameIsFinish) return;
         Graphics2D graphics2D = (Graphics2D) g;
         drawGrid(graphics2D);
         draw(graphics2D);
@@ -81,6 +81,13 @@ public class BoardView extends JPanel implements Observer<Data> {
         dt = new Date(System.currentTimeMillis() + sleep_time);
         timer = new Timer();
         timer.schedule(update(), dt);
+    }
+
+    public void gameOver(String winner){
+        gameIsFinish = true;
+        add(new JLabel("GAME OVER"));
+        add(new JLabel("The winnner is : "+winner));
+        repaint();
     }
 
     private TimerTask update() {

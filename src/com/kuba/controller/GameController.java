@@ -59,7 +59,7 @@ public class GameController {
                     lancerAnimationBille();
                     if (gameOver()){
                         gameIsFinish = true;
-                        boardView.gameOver();
+                        boardView.gameOver(getWinnner().getNom());
                     }
                 }
             }

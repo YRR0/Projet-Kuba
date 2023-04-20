@@ -21,7 +21,7 @@ public class GameView extends JPanel {
         setLayout(null);
         setSize(1000, 700);
         Board plateau = new Board(N);
-        boardView = new BoardView(plateau, 4*N-1);
+        boardView = new BoardView(plateau);
         new GameController(plateau, j1, j2);
         p1 = new PlayerView(j1);
         p2 = new PlayerView(j2);

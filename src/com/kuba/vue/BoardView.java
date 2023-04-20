@@ -22,8 +22,8 @@ public class BoardView extends JPanel implements Observer<Data> {
     private Date dt;
     private int size;
 
-    public BoardView(Board board, int N) {
-        size = N;
+    public BoardView(Board board) {
+        size = board.size();
         setBackground(new Color(0,0,0,0));
         timer = new Timer();
         this.board = board;

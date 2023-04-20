@@ -61,6 +61,10 @@ public class GameController {
         }
     }
 
+    public boolean gameOver(){
+        return blanc.getNbAdversaireCapturee() == noir.get
+    }
+
     private void lancerAnimationBille(){
         boardView.startAnimation(from, direction);
     }

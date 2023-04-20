@@ -21,6 +21,7 @@ public class Board implements Observable<Data>, Data {
     public Board(int n) {
         this.treated_configs = new HashSet<>();
         this.n = n;
+        Joueur.nbBille = 2 * n * n;
         int k = 4 * n - 1;
         board = new Cell[k][k];
         elementObs = new ArrayList<>();

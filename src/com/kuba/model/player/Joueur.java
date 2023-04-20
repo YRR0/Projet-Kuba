@@ -9,6 +9,7 @@ public class Joueur {
     private final String nom;
     private Score score;
     private final Couleur couleur;
+    public static int nbBille;
 
 
     public Joueur(String nom, Couleur couleur) {

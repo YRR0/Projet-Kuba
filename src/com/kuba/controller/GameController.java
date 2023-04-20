@@ -25,6 +25,7 @@ public class GameController {
     private Direction direction;
     private Son son;
     private final BoardView boardView;
+    private boolean gameIsFinish = false;
 
     public GameController(Board board, BoardView boardView, Joueur blanc, Joueur noir) {
         this.boardView = boardView;
@@ -40,6 +41,7 @@ public class GameController {
     }
 
     private void deplacement(Direction d){
+        if (gameIsFinish) return;
         boolean move = false;
         try{
             if(d !=null && from != null){
@@ -53,7 +55,13 @@ public class GameController {
                 } else {
                     System.out.println(moveStatus.getMessage());
                 }
-                if (move) lancerAnimationBille();
+                if (move){
+                    lancerAnimationBille();
+                    if (gameOver()){
+                        gameIsFinish = true;
+                        boardView.gameOver();
+                    }
+                }
             }
         }
         catch(Exception e){
@@ -62,7 +70,8 @@ public class GameController {
     }
 
     public Joueur getWinnner(){
-        
+        return (blanc.getNbAdversaireCapturee() == Joueur.nbBille 
+                || blanc.getNbBilleRougeCapturee() >= (Board.nbBilleRouges / 2)) ? blanc : noir;
     }
 
     public boolean gameOver(){

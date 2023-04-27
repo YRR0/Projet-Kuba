@@ -24,13 +24,11 @@ public class BoardView extends JPanel implements Observer<Data> {
     private final Timer timer;
     private static final int sleep_time = 5;
     private Date dt;
-    private int size;
     private BufferedImage layout;
 
     public BoardView(Board board, int N){
         try { layout = ImageIO.read(new File("src/resources/layout.png")); }
         catch (IOException io) { System.out.println("how?"); }
-        size = N;
         setBackground(new Color(0,0,0,0));
         timer = new Timer();
         this.board = board;
@@ -40,23 +38,18 @@ public class BoardView extends JPanel implements Observer<Data> {
         StatAnimation();
     }
 
-    /*private void drawGrid(Graphics2D graphics2D) {
+    private void drawGrid(Graphics2D graphics2D) {
         for(int i = 0; i < board.size(); i++) {
             for(int j = 0; j < board.size(); j++) {
-                if(i != board.size()-1 && j != board.size()-1) {
-                    graphics2D.setColor(Color.BLACK);
-                    graphics2D.setStroke(new BasicStroke(100/size));
-                    int width = 598/size;
-                    graphics2D.drawRect(j * width + (width / 2), i * width + (width / 2), width, width);
-                }
+                graphics2D.drawImage(layout, i*Bille.width, j*Bille.width, Bille.width, Bille.width, null);
             }
         }
-    }*/
+    }
 
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D graphics2D = (Graphics2D) g;
-        //drawGrid(graphics2D);
+        drawGrid(graphics2D);
         animate(graphics2D);
     }
 
@@ -87,7 +80,6 @@ public class BoardView extends JPanel implements Observer<Data> {
         for (int i=0;i<board.size();i++){
             for (int j=0;j<board.size();j++){
                 Bille b = board.board(i, j).getBille();
-                graphics2D.drawImage(layout, i*Bille.width, j*Bille.width, Bille.width, Bille.width, null);
                 if (b != null){
                     graphics2D.drawImage(b.image(), b.getX(),
                                                     b.getY(),Bille.width,

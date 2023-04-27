@@ -17,25 +17,23 @@ public class EndScreen extends JPanel {
         game = g;
         setSize(1000, 735);
         setLayout(null);
-        JPanel popup = new JPanel();
-        popup.setBounds(250, 320, 500, 300);
-        popup.setBackground(new Color(0,0,0,0));
-        popup.setLayout(null);
+        // Paramètrage des textes
         JLabel text = new JLabel();
         JLabel re = new JLabel(" Voulez-vous rejouer ?");
-        re.setBounds(150,30,500, 20);
+        re.setBounds(390, 350, 500, 20);
         re.setFont(new Font("Serif", Font.BOLD, 16));
         text.setFont(new Font("Serif", Font.BOLD, 20));
         if(gagnant!=null) {
             text.setText("Bravo! "+gagnant.getNom()+" a gagné ce match!");
-            text.setBounds(65, 0, 500, 20);
+            text.setBounds(315, 320, 500, 20);
         } else {
             text.setText("La partie a été abandonnée.");
-            text.setBounds(90, 0, 500, 20);
-        }    
-        background.setBackground(new Color(0,0,0,0));
+            text.setBounds(340, 320, 500, 20);
+        }
+
+        // Paramètrage du bouton de relance
         replay = new JButton(new ImageIcon("src/resources/restart.png"));
-        replay.setBounds(80, 80, 130, 60);
+        replay.setBounds(330, 400, 130, 60);
         replay.setBackground(new Color(0,0,0,0));
         replay.setBorderPainted(false);
         replay.addActionListener(new ActionListener() {
@@ -43,8 +41,10 @@ public class EndScreen extends JPanel {
                 game.menu.start.doClick(0);
             }
         });
+
+        // Paramètrage du bouton de retour au menu
         exit = new JButton(new ImageIcon("src/resources/exit.png"));
-        exit.setBounds(280, 80, 130, 60);
+        exit.setBounds(530, 400, 130, 60);
         exit.setBackground(new Color(0,0,0,0));
         exit.setBorderPainted(false);
         exit.addActionListener(new ActionListener() {
@@ -52,11 +52,12 @@ public class EndScreen extends JPanel {
                 game.moveToMenu();
             }
         });
-        popup.add(text);
-        popup.add(re);
-        popup.add(replay);
-        popup.add(exit);
-        background.add(popup);
+
+        // Ajout des composants
+        background.add(text);
+        background.add(re);
+        background.add(replay);
+        background.add(exit);
         add(background);
     }
 

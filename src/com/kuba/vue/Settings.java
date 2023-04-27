@@ -3,7 +3,6 @@ package com.kuba.vue;
 import com.kuba.Game;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import javax.swing.*;
 
 
@@ -19,6 +18,8 @@ public class Settings extends JPanel {
         setSize(1000, 735);
         setLayout(null);
         game = g;
+
+        // Réglage du bouton pour retourner au menu
         exit = new JButton(new ImageIcon("src/resources/return.png"));
         exit.setBounds(920, 25, 50, 50);
         exit.setBorderPainted(false);
@@ -26,19 +27,29 @@ public class Settings extends JPanel {
         exit.addActionListener(e -> {
             game.moveToMenu();
         });
+
+        // Réglage du bouton pour le mode glissement
         drag = new JRadioButton();
         drag.setBounds(70, 230, 20, 20);
         drag.setBackground(new Color(0, 0, 0, 0));
         drag.setSelected(true);
+
+        // Réglage du bouton pour le mode Clavier-Souris
         keyboard = new JRadioButton();
         keyboard.setBounds(350, 230, 20, 20);
         keyboard.setBackground(new Color(0, 0, 0, 0));
+
+        // réglage du bouton pour le mode double clic
         mouse = new JRadioButton();
         mouse.setBounds(720, 230, 20, 20);
         mouse.setBackground(new Color(0, 0, 0, 0));
+
+        // Création du groupe de bontons
         group.add(keyboard);
         group.add(mouse);
         group.add(drag);
+
+        // Ajout des composants
         background.add(keyboard);
         background.add(mouse);
         background.add(drag);

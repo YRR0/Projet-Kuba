@@ -13,7 +13,7 @@ import com.kuba.model.player.Joueur;
 public class GameView extends JPanel {
     private final PlayerView p1, p2;
     private BoardView boardView;
-    private JButton leave, confirm;
+    private JButton leave;
     JPanel background = new Background("src/resources/background.png", new Dimension(1000, 700));
     Game game;
 
@@ -24,16 +24,13 @@ public class GameView extends JPanel {
         Board plateau = new Board(N);
         boardView = new BoardView(plateau, 4*N-1);
         new GameController(plateau, j1, j2);
+
+        // Création des panneaux joueurs
         p1 = new PlayerView(j1);
         p2 = new PlayerView(j2);
-        confirm = new JButton(new ImageIcon("src/resources/confirm.png"));
-        confirm.setBackground(new Color(0,0,0,0));
-        confirm.setBorderPainted(false);
-        /*confirm.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-            }
-        });*/
-        leave = new JButton(new ImageIcon("src/resources/return.png"));
+
+        // Réglage du bouton d'abandon
+        leave = new JButton(new ImageIcon("src/resources/end.png"));
         leave.setBackground(new Color(0, 0, 0, 0));
         leave.setBorderPainted(false);
         leave.addActionListener( new ActionListener() {
@@ -42,21 +39,24 @@ public class GameView extends JPanel {
             } 
         });
 
+        // Placement des composants
         boardView.setBounds(50,50,598,598);
         p1.setBounds(698, 173, 275, 162);
         p2.setBounds(698, 337, 275, 162);
-        confirm.setBounds(810, 525, 55, 55);
-        leave.setBounds(910, 610, 55, 55);
+        leave.setBounds(790, 610, 130, 60);
 
+        // Ajout des composants
         background.add(boardView);
         background.add(p1);
         background.add(p2);
         background.add(leave);
-        background.add(confirm);
         add(background);
+
+        // Coloration pour indiquer le tour joueur
         p1.setBackground(new Color(255,120,0,50));
     }
 
+    // met à jour les panneaux joueurs
     public void update(){
         p1.update();
         p2.update();

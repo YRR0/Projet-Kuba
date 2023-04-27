@@ -26,7 +26,7 @@ public class BoardView extends JPanel implements Observer<Data> {
     private Date dt;
     private BufferedImage layout;
 
-    public BoardView(Board board, int N){
+    public BoardView(Board board){
         try { layout = ImageIO.read(new File("src/resources/layout.png")); }
         catch (IOException io) { System.out.println("how?"); }
         setBackground(new Color(0,0,0,0));
@@ -80,6 +80,7 @@ public class BoardView extends JPanel implements Observer<Data> {
         for (int i=0;i<board.size();i++){
             for (int j=0;j<board.size();j++){
                 Bille b = board.board(i, j).getBille();
+                graphics2D.drawImage(layout, i*Bille.width, j*Bille.width, Bille.width, Bille.width, null);
                 if (b != null){
                     graphics2D.drawImage(b.image(), b.getX(),
                                                     b.getY(),Bille.width,

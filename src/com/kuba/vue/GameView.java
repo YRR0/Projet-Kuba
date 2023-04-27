@@ -22,7 +22,7 @@ public class GameView extends JPanel {
         setLayout(null);
         setSize(1000, 700);
         Board plateau = new Board(N);
-        boardView = new BoardView(plateau, 4*N-1);
+        boardView = new BoardView(plateau);
         new GameController(plateau, j1, j2);
 
         // Création des panneaux joueurs

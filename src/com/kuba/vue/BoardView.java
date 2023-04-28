@@ -14,13 +14,13 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.*;
-import java.util.Date;
+import java.awt.*;                                                            
+import java.util.Date;    
 
 public class BoardView extends JPanel implements Observer<Data> {
 
     private Data board;
-    public static int HEIGHT = 598;
+    public static int HEIGHT;
     private final Timer timer;
     private static final int sleep_time = 5;
     private Date dt;
@@ -33,8 +33,6 @@ public class BoardView extends JPanel implements Observer<Data> {
         timer = new Timer();
         this.board = board;
         board.addObserver(this);
-        setPreferredSize(new Dimension(598, 598));
-        setSize(new Dimension(600, 600));
         StatAnimation();
     }
 

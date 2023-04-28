@@ -14,20 +14,21 @@ public class GameView extends JPanel {
     private final PlayerView p1, p2;
     private BoardView boardView;
     private JButton leave;
-    JPanel background = new Background("src/resources/background.png", new Dimension(1000, 700));
+    JPanel background;
     Game game;
 
     public GameView(int N, Joueur j1, Joueur j2, Game g) {
         game = g;
+        background = new Background("src/resources/background.png", new Dimension(game.WIDTH, game.HEIGHT));
         setLayout(null);
-        setSize(1000, 700);
-        Board plateau = new Board(N);
+        setSize(game.WIDTH, game.HEIGHT+35);
+        Board plateau = new Board(N, game.WIDTH);
         boardView = new BoardView(plateau);
         new GameController(plateau, j1, j2);
 
         // Création des panneaux joueurs
-        p1 = new PlayerView(j1);
-        p2 = new PlayerView(j2);
+        p1 = new PlayerView(j1, game.WIDTH, game.HEIGHT);
+        p2 = new PlayerView(j2, game.WIDTH, game.HEIGHT);
 
         // Réglage du bouton d'abandon
         leave = new JButton(new ImageIcon("src/resources/end.png"));
@@ -40,10 +41,14 @@ public class GameView extends JPanel {
         });
 
         // Placement des composants
-        boardView.setBounds(50,50,598,598);
-        p1.setBounds(698, 173, 275, 162);
-        p2.setBounds(698, 337, 275, 162);
-        leave.setBounds(790, 610, 130, 60);
+        boardView.setBounds((int)(game.WIDTH*0.05),(int)(game.WIDTH*0.05),
+                            (int)(game.WIDTH*0.6), (int)(game.WIDTH*0.6));
+        p1.setBounds((int)(game.WIDTH*0.698), (int)(game.HEIGHT*0.247), 
+                     (int)(game.WIDTH*0.275), (int)(game.HEIGHT*0.231));
+        p2.setBounds((int)(game.WIDTH*0.698), (int)(game.HEIGHT*0.481), 
+                     (int)(game.WIDTH*0.275), (int)(game.HEIGHT*0.231));
+        leave.setBounds((int)(game.WIDTH*0.78), (int)(game.HEIGHT*0.871), 
+                        (int)(game.WIDTH*0.13), (int)(game.HEIGHT*0.086));
 
         // Ajout des composants
         background.add(boardView);

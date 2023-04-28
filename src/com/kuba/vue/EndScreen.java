@@ -9,31 +9,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EndScreen extends JPanel {
-    JPanel background = new Background("src/resources/endscreen.png",new Dimension(1000, 700));
+    JPanel background;
     JButton replay, exit;
     Game game;
 
     public EndScreen(Game g, Joueur gagnant){
         game = g;
-        setSize(1000, 735);
+        background = new Background("src/resources/endscreen.png",new Dimension(game.WIDTH, game.HEIGHT));
+        setSize(game.WIDTH, game.HEIGHT+35);
         setLayout(null);
         // Paramètrage des textes
         JLabel text = new JLabel();
         JLabel re = new JLabel(" Voulez-vous rejouer ?");
-        re.setBounds(390, 350, 500, 20);
+        re.setBounds((int)(game.WIDTH*0.39), (int)(game.HEIGHT*0.5), (int)(game.WIDTH*0.5), (int)(game.HEIGHT*0.029));
         re.setFont(new Font("Serif", Font.BOLD, 16));
-        text.setFont(new Font("Serif", Font.BOLD, 20));
+        text.setFont(new Font("Serif", Font.BOLD, (int)(game.WIDTH*0.016)+(int)(game.HEIGHT*0.008)));
         if(gagnant!=null) {
             text.setText("Bravo! "+gagnant.getNom()+" a gagné ce match!");
-            text.setBounds(315, 320, 500, 20);
+            text.setBounds((int)(game.WIDTH*0.315), (int)(game.HEIGHT*0.457), 
+                           (int)(game.WIDTH*0.5), (int)(game.HEIGHT*0.029));
         } else {
             text.setText("La partie a été abandonnée.");
-            text.setBounds(340, 320, 500, 20);
+            text.setBounds((int)(game.WIDTH*0.34),(int)(game.HEIGHT*0.457), 
+                           (int)(game.WIDTH*0.5), (int)(game.HEIGHT*0.029));
         }
 
         // Paramètrage du bouton de relance
         replay = new JButton(new ImageIcon("src/resources/restart.png"));
-        replay.setBounds(330, 400, 130, 60);
+        replay.setBounds((int)(game.WIDTH*0.33), (int)(game.HEIGHT*0.571), 
+                         (int)(game.WIDTH*0.13), (int)(game.HEIGHT*0.086));
         replay.setBackground(new Color(0,0,0,0));
         replay.setBorderPainted(false);
         replay.addActionListener(new ActionListener() {
@@ -44,7 +48,8 @@ public class EndScreen extends JPanel {
 
         // Paramètrage du bouton de retour au menu
         exit = new JButton(new ImageIcon("src/resources/exit.png"));
-        exit.setBounds(530, 400, 130, 60);
+        exit.setBounds((int)(game.WIDTH*0.53), (int)(game.HEIGHT*0.571), 
+                       (int)(game.WIDTH*0.13), (int)(game.HEIGHT*0.086));
         exit.setBackground(new Color(0,0,0,0));
         exit.setBorderPainted(false);
         exit.addActionListener(new ActionListener() {

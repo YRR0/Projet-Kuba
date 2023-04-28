@@ -1,23 +1,25 @@
 package com.kuba;
-import java.awt.*;
-import java.io.IOException;
 
 import com.kuba.model.player.Joueur;
 import com.kuba.vue.*;
+
+import java.awt.Toolkit;
+
 import javax.swing.*;
 
 public class Game extends JFrame {
+    public final int WIDTH = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*7.3)/10;
+    public final int HEIGHT = (int)(WIDTH * 0.7);
+
     public MenuView menu = new MenuView(this);
     private Settings settings = new Settings(this);
     private GameView board;
 
     public Game() {
-        setSize(1000, 735);
+        setSize(WIDTH, HEIGHT+35);
         setContentPane(menu);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Kuba: The Game");
-        //pack();
-        //setLocationRelativeTo(null);
         setVisible(true);
     }
 

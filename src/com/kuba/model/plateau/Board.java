@@ -19,7 +19,7 @@ public class Board implements Observable<Data>, Data {
     private Set<Integer> treated_configs;
     private final ArrayList<Observer<Data>> elementObs;
 
-    public Board(int n) {
+    public Board(int n, int screenWidth) {
         this.treated_configs = new HashSet<>();
         this.n = n;
         int k = 4 * n - 1;
@@ -27,7 +27,7 @@ public class Board implements Observable<Data>, Data {
         elementObs = new ArrayList<>();
         if (keys == null)
             initKeys();
-        Bille.width = BoardView.HEIGHT / k;
+        Bille.width = (int)(screenWidth * 0.605)/k; 
         initBoard();
     }
 
@@ -199,7 +199,7 @@ public class Board implements Observable<Data>, Data {
     }
 
     public Board copyBoard() {
-        Board res = new Board(this.n);
+        Board res = new Board(this.n, (int)(Bille.width/0.6));
         res.treated_configs = new HashSet<>(treated_configs);
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {

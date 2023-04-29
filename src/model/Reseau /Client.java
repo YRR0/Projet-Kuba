@@ -1,4 +1,3 @@
-package model;
 
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -8,10 +7,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 
-public class Client {
+public class Client extends Reseau {
    public static void main(String[] args) {
     try {
-        Socket socket = new Socket("localhost", 2023);
+        Socket socket = new Socket("localhost", getPort());
         InputStream is = socket.getInputStream();
         OutputStream os = socket.getOutputStream();
         Scanner sc = new Scanner(System.in);
@@ -26,8 +25,7 @@ public class Client {
         
         e.printStackTrace();
     } catch (IOException e) { // gerer les erreurs de port
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+       e.printStackTrace();
     }
     
    }

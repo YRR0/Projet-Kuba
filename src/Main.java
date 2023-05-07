@@ -1,15 +1,15 @@
-import view.View;
+
+import com.kuba.vue.MenuView;
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                View frame = new View();
-                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                frame.setVisible(true);
-            }         
-        });
+        JPanel menu =  new MenuView();
+        JFrame frame = new JFrame();
+        frame.add(menu);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
     }
 }

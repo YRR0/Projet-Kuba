@@ -15,19 +15,21 @@ import java.net.Socket;
 import java.util.Scanner;
 
 
-public class Hote extends Reseau {
+public class Serveur implements Reseau {
+
+
 
     public static void main(String[] args) {
         try {
 
-            ServerSocket server = new ServerSocket(getPort()); // le serveur passe par le port 2023
+            ServerSocket server = new ServerSocket(2023); // le serveur passe par le port 2023
             System.out.println("Serveur en attente de connexion");
 
             Socket socket = server.accept(); // bloque le thread tant qu'une connexion n'a pas été établie
             System.out.println("Connexion établie");
            // InputStream is = socket.getInputStream();
            // OutputStream os = socket.getOutputStream();
-            Board board = null;
+           
 
             while(true){
             Scanner sc = new Scanner(System.in);
@@ -42,7 +44,7 @@ public class Hote extends Reseau {
                 System.out.println("Erreur, veuillez saisir un nombre positif");
             }
             }
-            
+        
             System.out.println("En attente de message");
            // int nb = is.read(); // bloque le thread tant qu'un message n'a pas été reçu
             System.out.println("Message reçu");
@@ -53,6 +55,7 @@ public class Hote extends Reseau {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 

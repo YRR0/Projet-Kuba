@@ -4,24 +4,21 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class Reseau {
-    private static final int port = 2023;
+public interface Reseau {
 
-    public static byte[] serialize(Object obj) throws IOException {
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    ObjectOutputStream os = new ObjectOutputStream(out);
-    os.writeObject(obj);
+
+    default byte[] serialize(Object obj) throws IOException { // permet de convertir un objet en tableau de byte
+    ByteArrayOutputStream out = new ByteArrayOutputStream(); // permet de stocker les données dans un tableau de byte
+    ObjectOutputStream os = new ObjectOutputStream(out); // permet de convertir un objet en tableau de byte
+    os.writeObject(obj); // permet de convertir un objet en tableau de byte
     return out.toByteArray();
     }
     
-    public static Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
+    default Object deserialize(byte[] data) throws IOException, ClassNotFoundException { // permet de convertir un tableau de byte en objet
     ByteArrayInputStream in = new ByteArrayInputStream(data);
     ObjectInputStream is = new ObjectInputStream(in);
     return is.readObject();
     }
     
-    public static int getPort() {
-        return port;
-    }
 
 }

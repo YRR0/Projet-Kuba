@@ -1,27 +1,53 @@
 package com.kuba;
-import java.awt.*;
-import com.kuba.controller.GameController;
-import com.kuba.model.plateau.Board;
-import com.kuba.model.player.Joueur;
-import com.kuba.vue.BoardView;
-import com.kuba.vue.GameView;
 
+import com.kuba.model.player.Joueur;
+import com.kuba.vue.*;
+import java.io.ObjectOutputStream;
+import java.awt.*;
 import javax.swing.*;
 
 public class Game extends JFrame {
+    public final Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+    public MenuView menu = new MenuView(this);
+    public GameView board;
 
-    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    public static final int HIEGHT = screenSize.height, WIDTH = screenSize.width;;
-
-    public Game(int n, Joueur j1, Joueur j2) {
-
-        GameView gameView = new GameView(n, j1, j2);
+    public Game() {
+        setSize(screensize);
+        setContentPane(menu);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle(" Board Affichage ");
-        this.setSize(screenSize);
-        add(gameView);
+        setTitle("Kuba: The Game");
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    public Game(int n, Joueur j1, Joueur j2,boolean online,ObjectOutputStream out,Joueur j) {
+        board = new GameView(this,n, j1, j2,online,out,j);
+        setContentPane(board);
+        setUndecorated(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE); 
+        setTitle("Kuba: The Game");
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+
+    public GameView getGameView() {
+        return this.board;
+    }
+
+    public void moveToMenu(){
+        setContentPane(menu);
+        invalidate();
+        validate();
+    }
+
+    public void moveToBoard(int n, Joueur j1, Joueur j2){     
+        board = new GameView(this, n, j1, j2);
+        setContentPane(board);
+        invalidate();
+        validate();
+    }
+
 }

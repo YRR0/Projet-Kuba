@@ -19,6 +19,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.EventListener;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
@@ -317,6 +318,8 @@ public class GameController {
             }
         }
 
+       
+        
         @Override
         public void mouseReleased(MouseEvent e) {
             if(((JPanel)board.getObserver()).contains(e.getPoint())){
@@ -345,6 +348,33 @@ public class GameController {
                         System.out.print("_");
                     }
                 }
+            }
+        }
+    }
+
+    private class MouseMotionController extends MouseMotionAdapter {
+
+        @Override
+        public void mouseDragged(MouseEvent e){ // 30 est mis arbitrairement afin d'anticiper les faux mouvements de la souris 
+
+            int x = e.getX();
+            int y = e.getY();
+
+            if(y<from.getJ() - 30){ 
+                direction = Direction.SUD;
+                deplacement(direction);
+            }
+            if(x<from.getI() + 30){
+                direction = Direction.OUEST;
+                deplacement(direction);
+            }
+            if(x>from.getI() + 30){
+                direction = Direction.EST;
+                deplacement(direction);
+            }
+            if(y>from.getJ() - 30){
+                direction = Direction.NORD;
+                deplacement(direction);
             }
         }
     };

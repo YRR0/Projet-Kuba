@@ -13,7 +13,7 @@ public class Joueur {
 
     public Joueur(String nom, Couleur couleur) {
         this.nom = nom;
-        this.score = new Score(0, 0);
+        this.score = new Joueur.Score(0, 0);
         this.couleur = couleur;
     }
 
@@ -70,5 +70,39 @@ public class Joueur {
         if(!(o instanceof Joueur joueur)) return false;
         return this.nom.equals(joueur.nom) && this.getNbBilleRougeCapturee() == joueur.getNbBilleRougeCapturee() && this.getNbAdversaireCapturee() == joueur.getNbAdversaireCapturee();
     }
+
+
+public class Score {
+
+    private int nbBillesRouges;
+    private int nbBillesAdversaire;
+
+    public Score(int nbBillesRouges, int nbBillesAdversaire) {
+        this.nbBillesRouges = nbBillesRouges;
+        this.nbBillesAdversaire = nbBillesAdversaire;
+    }
+
+    public void updateRouges() {
+        nbBillesRouges++;
+    }
+
+    public void updateAdversaire() {
+        nbBillesAdversaire++;
+    }
+
+    public int getRouges() {
+        return nbBillesRouges;
+    }
+    public void setRouges(int r) {
+        this.nbBillesRouges = r;
+    }
+
+    public int getAdversaire() {
+        return nbBillesAdversaire;
+    }
+    public void setAdversaire(int a) {
+        this.nbBillesAdversaire = a;
+    }
+}
 }
 
